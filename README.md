@@ -1,3 +1,3 @@
 # LeetCode-practice
 practice on LeetCode
-[解题报告](report.md)
+[Top Interview Questions-Easy](top_interview_questions_easy_report.md)

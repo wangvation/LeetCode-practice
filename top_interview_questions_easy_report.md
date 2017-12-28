@@ -18,9 +18,9 @@ Answer:
     '''cpp
     //输入输出流加速
     static int x = [](){
-    std::ios::sync_with_stdio(false);
-    cin.tie(NULL);
-    return 0;
+		std::ios::sync_with_stdio(false);
+		cin.tie(NULL);
+		return 0;
     }();
 
     class Solution {
@@ -58,9 +58,9 @@ Do not allocate extra space for another array, you must do this by modifying the
 	'''C++
 	//输入输出流加速
     static int x = [](){
-    std::ios::sync_with_stdio(false);
-    cin.tie(NULL);
-    return 0;
+		std::ios::sync_with_stdio(false);
+		cin.tie(NULL);
+		return 0;
     }();
     class Solution {
     public:
@@ -95,9 +95,9 @@ Special thanks to @dietpepsi for adding this problem and creating all test cases
 	//Answer 1
 	//输入输出流加速
     static int x = [](){
-    std::ios::sync_with_stdio(false);
-    cin.tie(NULL);
-    return 0;
+		std::ios::sync_with_stdio(false);
+		cin.tie(NULL);
+		return 0;
     }();
 	class Solution {
 	public:
@@ -133,9 +133,9 @@ Special thanks to @dietpepsi for adding this problem and creating all test cases
 	//Answer 3
 	//without using any loop / recursion
 	static int x = [](){
-    std::ios::sync_with_stdio(false);
-    cin.tie(NULL);
-    return 0;
+		std::ios::sync_with_stdio(false);
+		cin.tie(NULL);
+		return 0;
     }();
 	class Solution {
 	public:
@@ -175,9 +175,9 @@ Special thanks to @fujiaozhu for adding this problem and creating all test cases
 
 	'''
 	static int x = [](){
-	std::ios::sync_with_stdio(false);
-	cin.tie(NULL);
-	return 0;
+		std::ios::sync_with_stdio(false);
+		cin.tie(NULL);
+		return 0;
 	}();
 	class Solution {
 	public:
@@ -218,9 +218,9 @@ Assume we are dealing with an environment which could only hold integers within 
 **Answer:**
 
 	static int x = [](){
-    std::ios::sync_with_stdio(false);
-    cin.tie(NULL);
-    return 0;
+		std::ios::sync_with_stdio(false);
+		cin.tie(NULL);
+		return 0;
 	}();
 
 	class Solution {
@@ -234,5 +234,152 @@ Assume we are dealing with an environment which could only hold integers within 
 				x/=10;
 			}
 			return ret;
+		}
+	};
+
+
+### 283. Move Zeroes
+Given an array nums, write a function to move all 0's to the end of it while maintaining the relative order of the non-zero elements.
+
+For example, given nums = [0, 1, 0, 3, 12], after calling your function, nums should be [1, 3, 12, 0, 0].
+
+**Note:**
+You must do this in-place without making a copy of the array.
+Minimize the total number of operations.
+** Answer:**
+
+	static int x = [](){
+		std::ios::sync_with_stdio(false);
+		cin.tie(NULL);
+		return 0;
+	}();
+	class Solution {
+	public:
+		void moveZeroes(vector<int>& nums) {
+			for(int i=0,j=0;i<nums.size();++i){
+				if(nums[i]){
+					if(i!=j)
+						swap(nums[j++],nums[i]);
+					else
+						++j;
+				}
+			}
+		}
+	};
+
+### 268. Missing Number
+Given an array containing n distinct numbers taken from 0, 1, 2, ..., n, find the one that is missing from the array.
+
+** Example 1**
+
+	Input: [3,0,1]
+	Output: 2
+** Example 2**
+
+	Input: [9,6,4,2,3,5,7,0,1]
+	Output: 8
+
+** Note:**
+Your algorithm should run in linear runtime complexity. Could you implement it using only constant extra space complexity?
+** Answer:**
+
+	//Answer1
+	class Solution {
+	public:
+		int missingNumber(vector<int>& nums) {
+			vector<bool> is_exist(nums.size()+1,false);
+			for(int i=0;i<nums.size();++i){
+				is_exist[nums[i]]=true;
+			}
+			for(int i=0;i<is_exist.size();++i){
+				if(!is_exist[i]) return i;
+			}
+		}
+	};
+
+	//Answer2
+	static int x = [](){
+		std::ios::sync_with_stdio(false);
+		cin.tie(NULL);
+		return 0;
+	}();
+	class Solution {
+	public:
+		int missingNumber(vector<int>& nums) {
+			int miss=0;
+			int n=nums.size();
+			for(int i=0;i<n;++i){
+				miss^=i^nums[i];
+			}
+			miss^=n;
+			return miss;
+		}
+	};
+
+### 136. Single Number
+
+Given an array of integers, every element appears twice except for one. Find that single one.
+
+**Note:**
+Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?
+** Answer:**
+
+	static int x = [](){
+		std::ios::sync_with_stdio(false);
+		cin.tie(NULL);
+		return 0;
+	}();
+	class Solution {
+	public:
+		int singleNumber(vector<int>& nums) {
+			for(int i=1,len=nums.size();i<len;++i){
+				nums[0]^=nums[i];
+			}
+			return nums[0];
+		}
+	};
+
+### 69. Sqrt(x)
+Implement int sqrt(int x).
+
+Compute and return the square root of x.
+
+x is guaranteed to be a non-negative integer.
+
+
+**Example 1:**
+
+	Input: 4
+	Output: 2
+**Example 2:**
+
+	Input: 8
+	Output: 2
+	Explanation: The square root of 8 is 2.82842..., and since we want to return an integer, the decimal part will be 	truncated.
+**Answer:**
+
+	static int x = [](){
+		std::ios::sync_with_stdio(false);
+		cin.tie(NULL);
+		return 0;
+	}();
+	class Solution {
+	public:
+		int mySqrt(int x) {
+			if(x<=1) return x;
+			int low=0;
+			int high=x;
+			long long mid;
+			long long prod; 
+			while(high>=low){
+				mid=(high+low)>>1;
+				prod=mid*mid;
+				if(prod==x) return mid;
+				if(prod>x)
+					high=mid-1;
+				else
+					low=mid+1;
+			}
+			return high;
 		}
 	};
