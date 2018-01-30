@@ -370,7 +370,7 @@ x is guaranteed to be a non-negative integer.
 			int low=0;
 			int high=x;
 			long long mid;
-			long long prod; 
+			long long prod;
 			while(high>=low){
 				mid=(high+low)>>1;
 				prod=mid*mid;
@@ -381,5 +381,440 @@ x is guaranteed to be a non-negative integer.
 					low=mid+1;
 			}
 			return high;
+		}
+	};
+
+
+### 344. Reverse String
+Write a function that takes a string as input and returns the string reversed.
+
+**Example:**
+Given s = "hello", return "olleh".
+** Answer:**
+
+	static int x = [](){
+		std::ios::sync_with_stdio(false);
+		cin.tie(NULL);
+		return 0;
+	}();
+	class Solution {
+	public:
+		string reverseString(string s) {
+			for(int i=0,j=s.size()-1;i<j;++i,--j){
+				swap(s[i],s[j]);
+			}
+			return s;
+		}
+	};
+
+### 617. Merge Two Binary Trees
+Given two binary trees and imagine that when you put one of them to cover the other, some nodes of the two trees are overlapped while the others are not.
+
+You need to merge them into a new binary tree. The merge rule is that if two nodes overlap, then sum node values up as the new value of the merged node. Otherwise, the NOT null node will be used as the node of new tree.
+
+**Example 1:**
+
+	Input:
+		Tree 1                     Tree 2
+			  1                         2
+			 / \                       / \
+			3   2                     1   3
+		   /                           \   \
+		  5                             4   7
+	Output:
+	Merged tree:
+			 3
+			/ \
+		   4   5
+		  / \   \
+		 5   4   7
+
+** Answer:**
+
+	/**
+	 * Definition for a binary tree node.
+	 * struct TreeNode {
+	 *     int val;
+	 *     TreeNode *left;
+	 *     TreeNode *right;
+	 *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+	 * };
+	 */
+	static int x = [](){
+		std::ios::sync_with_stdio(false);
+		cin.tie(NULL);
+		return 0;
+	}();
+	class Solution {
+	public:
+		TreeNode* mergeTrees(TreeNode* t1, TreeNode* t2) {
+			if(t1==NULL)
+				return t2;
+			if(t2==NULL)
+				return t1;
+			TreeNode* merged=new TreeNode(t1->val+t2->val);
+			merged->left=mergeTrees(t1->left,t2->left);
+			merged->right=mergeTrees(t1->right,t2->right);
+			return merged;
+		}
+	};
+
+### 104. Maximum Depth of Binary Tree
+Given a binary tree, find its maximum depth.
+
+The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
+
+** Answer:**
+
+	/**
+	 * Definition for a binary tree node.
+	 * struct TreeNode {
+	 *     int val;
+	 *     TreeNode *left;
+	 *     TreeNode *right;
+	 *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+	 * };
+	 */
+	static int x = [](){
+		std::ios::sync_with_stdio(false);
+		cin.tie(NULL);
+		return 0;
+	}();
+	class Solution {
+	public:
+		int maxDepth(TreeNode* root) {
+			if(root==NULL)
+				return 0;
+			return max(maxDepth(root->left),maxDepth(root->right))+1;
+		}
+	};
+
+### 448. Find All Numbers Disappeared in an Array
+
+Given an array of integers where 1 ≤ a[i] ≤ n (n = size of array), some elements appear twice and others appear once.
+
+Find all the elements of [1, n] inclusive that do not appear in this array.
+
+Could you do it without extra space and in O(n) runtime? You may assume the returned list does not count as extra space.
+
+**Example:**
+
+	Input:
+	[4,3,2,7,8,2,3,1]
+
+	Output:
+	[5,6]
+
+** Answer:**
+
+	static int x = [](){
+		std::ios::sync_with_stdio(false);
+		cin.tie(NULL);
+		return 0;
+	}();
+	class Solution {
+	public:
+		vector<int> findDisappearedNumbers(vector<int>& nums) {
+			vector<bool> exist(nums.size()+1,false);
+			for(int i=0;i<nums.size();++i){
+				exist[nums[i]]=true;
+			}
+			vector<int> ret;
+			for(int i=1;i<exist.size();++i){
+				if(!exist[i]){
+					ret.push_back(i);
+				}
+			}
+			return ret;
+		}
+	};
+
+### 461. Hamming Distance
+The Hamming distance between two integers is the number of positions at which the corresponding bits are different.
+
+Given two integers x and y, calculate the Hamming distance.
+
+**Note:**
+
+0 ≤ x, y < 231.
+
+**Example:**
+
+	Input: x = 1, y = 4
+
+	Output: 2
+
+	Explanation:
+	1   (0 0 0 1)
+	4   (0 1 0 0)
+		   ↑   ↑
+
+The above arrows point to positions where the corresponding bits are different.
+
+**Answer:**
+
+	static int x = [](){
+		std::ios::sync_with_stdio(false);
+		cin.tie(NULL);
+		return 0;
+	}();
+	class Solution {
+	public:
+		int hammingDistance(int x, int y) {
+			int diff=x^y;
+			int dist=0;
+			while(diff){
+				++dist;
+				diff^=diff&(-diff);
+			}
+			return dist;
+		}
+	};
+
+### 100. Same Tree
+Given two binary trees, write a function to check if they are the same or not.
+
+Two binary trees are considered the same if they are structurally identical and the nodes have the same value.
+
+**Example 1:**
+
+	Input:     1         1
+			  / \       / \
+			 2   3     2   3
+
+			[1,2,3],   [1,2,3]
+
+	Output: true
+
+**Example 2:**
+
+	Input:     1         1
+			  /           \
+			 2             2
+
+			[1,2],     [1,null,2]
+
+	Output: false
+
+**Example 3:**
+
+	Input:     1         1
+			  / \       / \
+			 2   1     1   2
+
+			[1,2,1],   [1,1,2]
+
+	Output: false
+
+
+**Answer:**
+
+	/**
+	 * Definition for a binary tree node.
+	 * struct TreeNode {
+	 *     int val;
+	 *     TreeNode *left;
+	 *     TreeNode *right;
+	 *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+	 * };
+	 */
+	static int x = [](){
+		std::ios::sync_with_stdio(false);
+		cin.tie(NULL);
+		return 0;
+	}();
+	class Solution {
+	public:
+		bool isSameTree(TreeNode* p, TreeNode* q) {
+			if(!p&&!q){
+				return true;
+			}
+			if(!p||!q||q->val!=p->val){
+				return false;
+			}
+			return isSameTree(p->left,q->left)&&isSameTree(p->right,q->right);
+		}
+	};
+
+### 226. Invert Binary Tree
+Invert a binary tree.
+
+		 4
+	   /   \
+	  2     7
+	 / \   / \
+	1   3 6   9
+to
+
+		 4
+	   /   \
+	  7     2
+	 / \   / \
+	9   6 3   1
+Trivia:
+This problem was inspired by this original tweet by Max Howell:
+Google: 90% of our engineers use the software you wrote (Homebrew), but you can’t invert a binary tree on a whiteboard so fuck off.
+**Answer:**
+	/**
+	 * Definition for a binary tree node.
+	 * struct TreeNode {
+	 *     int val;
+	 *     TreeNode *left;
+	 *     TreeNode *right;
+	 *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+	 * };
+	 */
+	static int x = [](){
+		std::ios::sync_with_stdio(false);
+		cin.tie(NULL);
+		return 0;
+	}();
+	class Solution {
+	public:
+		TreeNode* invertTree(TreeNode* root) {
+			if(!root){
+				return root;
+			}
+			TreeNode* t=root->left;
+			root->left=root->right;
+			root->right=t;
+			if(root->left)
+				invertTree(root->left);
+			if(root->right)
+				invertTree(root->right);
+			return root;
+		}
+	};
+
+### 204. Count Primes
+**Description:**
+
+Count the number of prime numbers less than a non-negative number, n.
+
+**Credits:**
+Special thanks to @mithmatt for adding this problem and creating all test cases.
+**Answer:**
+
+	static int x = [](){
+		std::ios::sync_with_stdio(false);
+		cin.tie(NULL);
+		return 0;
+	}();
+	class Solution {
+	public:
+		int countPrimes(int n) {
+			if(n<3) return 0;
+			bool is_prime[n];
+			memset(is_prime, true, sizeof(is_prime));
+			int prime_sum=1;
+			for(int i=3;i<n;i+=2){
+				if(is_prime[i]){
+					++prime_sum;
+					for(long long j=(long long)i*i;j<n;j+=2*i)
+						is_prime[j]=false;
+				}
+			}
+			return prime_sum;
+		}
+	};
+
+### 387. First Unique Character in a String
+Given a string, find the first non-repeating character in it and return it's index. If it doesn't exist, return -1.
+
+**Examples:**
+
+	s = "leetcode"
+	return 0.
+
+	s = "loveleetcode",
+	return 2.
+**Note:** You may assume the string contain only lowercase letters.
+
+**Answer:**
+
+	static int x = [](){
+		std::ios::sync_with_stdio(false);
+		cin.tie(NULL);
+		return 0;
+	}();
+	class Solution {
+	public:
+		int firstUniqChar(string s) {
+			if(s.size()==0) return -1;
+			int exist[26]={0};
+			for(auto ch:s){
+				exist[ch-'a']++;
+			}
+			for(int i=0;i<s.size();++i){
+				if(exist[s[i]-'a']==1){
+					return i;
+				}
+			}
+			return -1;
+		}
+	};
+### 189. Rotate Array
+
+Rotate an array of n elements to the right by k steps.
+
+For example, with n = 7 and k = 3, the array [1,2,3,4,5,6,7] is rotated to [5,6,7,1,2,3,4].
+
+**Note:**
+Try to come up as many solutions as you can, there are at least 3 different ways to solve this problem.
+
+
+
+**Answer:**
+
+	static int x = [](){
+		std::ios::sync_with_stdio(false);
+		cin.tie(NULL);
+		return 0;
+	}();
+	class Solution {
+	public:
+		void rotate(vector<int>& nums, int k) {
+			int n=nums.size();
+			if(k>n)k%=n;
+			if(k==n||k==0)
+				return;
+			int axis=n-k;
+			reverse(nums.begin(),nums.begin()+axis);
+			reverse(nums.begin()+axis,nums.end());
+			reverse(nums.begin(),nums.end());
+
+		}
+	};
+
+### 206. Reverse Linked List
+Reverse a singly linked list.
+**Answer:**
+
+	/**
+	 * Definition for singly-linked list.
+	 * struct ListNode {
+	 *     int val;
+	 *     ListNode *next;
+	 *     ListNode(int x) : val(x), next(NULL) {}
+	 * };
+	 */
+	static int x = [](){
+		std::ios::sync_with_stdio(false);
+		cin.tie(0);
+		return 0;
+	}();
+	class Solution {
+	public:
+		ListNode* reverseList(ListNode* head) {
+			if(!head||!head->next) return head;
+			ListNode* p=head;
+			ListNode* q;
+			while(p->next){
+				q=p->next;
+				p->next=q->next;
+				q->next=head;
+				head=q;
+			}
+			return head;
 		}
 	};
