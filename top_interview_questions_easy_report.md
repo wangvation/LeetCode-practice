@@ -654,7 +654,9 @@ to
 Trivia:
 This problem was inspired by this original tweet by Max Howell:
 Google: 90% of our engineers use the software you wrote (Homebrew), but you can’t invert a binary tree on a whiteboard so fuck off.
+
 **Answer:**
+
 	/**
 	 * Definition for a binary tree node.
 	 * struct TreeNode {
