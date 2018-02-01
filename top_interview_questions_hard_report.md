@@ -146,3 +146,100 @@ Could you do both operations in O(1) time complexity?
 	 * int param_1 = obj.get(key);
 	 * obj.put(key,value);
 	 */
+
+### 23. Merge k Sorted Lists
+Merge k sorted linked lists and return it as one sorted list. Analyze and describe its complexity.
+
+**Answer:**
+
+	//Answer#1
+	/**
+	 * Definition for singly-linked list.
+	 * struct ListNode {
+	 *     int val;
+	 *     ListNode *next;
+	 *     ListNode(int x) : val(x), next(NULL) {}
+	 * };
+	 */
+	class Solution {
+	public:
+		ListNode* mergeKLists(vector<ListNode*>& lists) {
+			int k=lists.size();
+			if(k==0){
+				return NULL;
+			}
+			ListNode* head=NULL;
+			ListNode* p=NULL;
+			while(true){
+				ListNode* minnode=NULL;
+				int minIdx=-1;
+				for(int i=0;i<k;++i){
+					ListNode* node=lists[i];
+					if(node==NULL){
+						continue;
+					}
+					if(minIdx==-1||node->val<minnode->val){
+						minnode=node;
+						minIdx=i;
+					}
+				}
+				if(minIdx==-1){
+					break;
+				}
+				if(head==NULL){
+					head=lists[minIdx];
+					p=head;
+				}else{
+					p->next=lists[minIdx];
+					p=p->next;
+				}
+				lists[minIdx]=lists[minIdx]->next;
+				p->next=NULL;
+			}
+			return head;
+		}
+	};
+	//Answer#2
+	/**
+	 * Definition for singly-linked list.
+	 * struct ListNode {
+	 *     int val;
+	 *     ListNode *next;
+	 *     ListNode(int x) : val(x), next(NULL) {}
+	 * };
+	 */
+	static auto x = [](){
+		std::ios::sync_with_stdio(false);
+		cin.tie(NULL);
+		return 0;
+	}();
+	class Solution {
+	public:
+		struct cmp {
+			bool operator()(ListNode *a, ListNode *b) {
+				return a->val > b->val;
+			}
+		};
+		ListNode* mergeKLists(vector<ListNode*>& lists) {
+			int k=lists.size();
+			ListNode* head=nullptr;
+			ListNode **p=&head;
+			priority_queue<ListNode*,vector<ListNode*>,cmp> que;
+			for(int i=0;i<k;++i){
+				if(lists[i]){
+					que.emplace(lists[i]);
+				}
+			}
+			while(!que.empty()){
+				ListNode* cur=que.top();
+				que.pop();
+				if(cur->next){
+					que.emplace(cur->next);
+				}
+				*p=cur;
+				p=&(cur->next);
+			}
+			return head;
+		}
+	};
+	
